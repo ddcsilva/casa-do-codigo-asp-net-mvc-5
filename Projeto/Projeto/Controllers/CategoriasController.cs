@@ -89,5 +89,11 @@ namespace Projeto.Controllers
         {
             return View(listaCategorias.Where(c => c.CategoriaId == id).First());
         }
+
+        // GET: Delete
+        public ActionResult Delete(long id)
+        {
+            return View(listaCategorias.Where(c => c.CategoriaId == id).First());
+        }
     }
 }
