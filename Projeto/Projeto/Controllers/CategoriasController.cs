@@ -83,5 +83,11 @@ namespace Projeto.Controllers
 
             return RedirectToAction("Index");
         }
+
+        // GET: Details
+        public ActionResult Details(long id)
+        {
+            return View(listaCategorias.Where(c => c.CategoriaId == id).First());
+        }
     }
 }
