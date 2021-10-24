@@ -47,7 +47,7 @@ namespace Projeto.Controllers
         // GET: Categorias
         public ActionResult Index()
         {
-            return View(listaCategorias);
+            return View(listaCategorias.OrderBy(c => c.Nome));
         }
 
         // GET: Create
@@ -71,6 +71,17 @@ namespace Projeto.Controllers
         public ActionResult Edit(long id)
         {
             return View(listaCategorias.Where(c => c.CategoriaId == id).First());
+        }
+
+        // POST: Edit
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Categoria categoria)
+        {
+            listaCategorias.Remove(listaCategorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
+            listaCategorias.Add(categoria);
+
+            return RedirectToAction("Index");
         }
     }
 }
