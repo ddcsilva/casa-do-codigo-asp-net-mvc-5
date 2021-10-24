@@ -66,5 +66,11 @@ namespace Projeto.Controllers
 
             return RedirectToAction("Index");
         }
+
+        // GET: Edit
+        public ActionResult Edit(long id)
+        {
+            return View(listaCategorias.Where(c => c.CategoriaId == id).First());
+        }
     }
 }
