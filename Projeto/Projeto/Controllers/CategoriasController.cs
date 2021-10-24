@@ -95,5 +95,15 @@ namespace Projeto.Controllers
         {
             return View(listaCategorias.Where(c => c.CategoriaId == id).First());
         }
+
+        // POST: Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(Categoria categoria)
+        {
+            listaCategorias.Remove(listaCategorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
+
+            return RedirectToAction("Index");
+        }
     }
 }
