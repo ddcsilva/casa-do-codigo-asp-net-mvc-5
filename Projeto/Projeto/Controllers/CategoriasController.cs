@@ -1,4 +1,5 @@
-﻿using Projeto.Models;
+﻿using Projeto.Contexts;
+using Projeto.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -15,39 +16,12 @@ namespace Projeto.Controllers
 
     public class CategoriasController : Controller
     {
-        private static IList<Categoria> listaCategorias = new List<Categoria>()
-        {
-            new Categoria()
-            {
-                CategoriaId = 1,
-                Nome = "Notebooks"
-            },
-            new Categoria()
-            {
-                CategoriaId = 2,
-                Nome = "Monitores"
-            },
-            new Categoria()
-            {
-                CategoriaId = 3,
-                Nome = "Impressoras"
-            },
-            new Categoria()
-            {
-                CategoriaId = 4,
-                Nome = "Mouses"
-            },
-            new Categoria()
-            {
-                CategoriaId = 5,
-                Nome = "Desktops"
-            }
-        };
+        private Contexto contexto = new Contexto();
 
         // GET: Categorias
         public ActionResult Index()
         {
-            return View(listaCategorias.OrderBy(c => c.Nome));
+            return View(contexto.Categorias.OrderBy(c => c.Nome));
         }
 
         // GET: Create
@@ -61,8 +35,8 @@ namespace Projeto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Categoria categoria)
         {
-            listaCategorias.Add(categoria);
-            categoria.CategoriaId = listaCategorias.Select(c => c.CategoriaId).Max() + 1;
+            contexto.Categorias.Add(categoria);
+            contexto.SaveChanges();
 
             return RedirectToAction("Index");
         }
@@ -70,7 +44,8 @@ namespace Projeto.Controllers
         // GET: Edit
         public ActionResult Edit(long id)
         {
-            return View(listaCategorias.Where(c => c.CategoriaId == id).First());
+            //return View(listaCategorias.Where(c => c.CategoriaId == id).First());
+            return null;
         }
 
         // POST: Edit
@@ -78,8 +53,8 @@ namespace Projeto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Categoria categoria)
         {
-            listaCategorias.Remove(listaCategorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
-            listaCategorias.Add(categoria);
+            //listaCategorias.Remove(listaCategorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
+            //listaCategorias.Add(categoria);
 
             return RedirectToAction("Index");
         }
@@ -87,13 +62,15 @@ namespace Projeto.Controllers
         // GET: Details
         public ActionResult Details(long id)
         {
-            return View(listaCategorias.Where(c => c.CategoriaId == id).First());
+            //return View(listaCategorias.Where(c => c.CategoriaId == id).First());
+            return null;
         }
 
         // GET: Delete
         public ActionResult Delete(long id)
         {
-            return View(listaCategorias.Where(c => c.CategoriaId == id).First());
+            //return View(listaCategorias.Where(c => c.CategoriaId == id).First());
+            return null;
         }
 
         // POST: Delete
@@ -101,7 +78,7 @@ namespace Projeto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Categoria categoria)
         {
-            listaCategorias.Remove(listaCategorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
+            //listaCategorias.Remove(listaCategorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
 
             return RedirectToAction("Index");
         }
