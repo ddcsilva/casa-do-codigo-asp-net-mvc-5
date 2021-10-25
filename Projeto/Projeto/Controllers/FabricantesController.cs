@@ -85,5 +85,23 @@ namespace Projeto.Controllers
 
             return View(fabricante);
         }
+
+        // GET: Fabricantes/Delete/5
+        public ActionResult Delete(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Fabricante fabricante = contexto.Fabricantes.Find(id);
+
+            if (fabricante == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(fabricante);
+        }
     }
 }
