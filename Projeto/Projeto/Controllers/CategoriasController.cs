@@ -1,7 +1,9 @@
 ﻿using Projeto.Contexts;
 using Projeto.Models;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Projeto.Controllers
@@ -42,10 +44,21 @@ namespace Projeto.Controllers
         }
 
         // GET: Edit
-        public ActionResult Edit(long id)
+        public ActionResult Edit(long? id)
         {
-            //return View(listaCategorias.Where(c => c.CategoriaId == id).First());
-            return null;
+            if (id == null)
+            {
+                new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Categoria categoria = contexto.Categorias.Find(id);
+
+            if (categoria == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(categoria);
         }
 
         // POST: Edit
@@ -53,10 +66,15 @@ namespace Projeto.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Categoria categoria)
         {
-            //listaCategorias.Remove(listaCategorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
-            //listaCategorias.Add(categoria);
+            if (ModelState.IsValid)
+            {
+                contexto.Entry(categoria).State = EntityState.Modified;
+                contexto.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+
+            return View(categoria);
         }
 
         // GET: Details
