@@ -103,5 +103,17 @@ namespace Projeto.Controllers
 
             return View(fabricante);
         }
+
+        // POST: Fabricantes/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(long id)
+        {
+            Fabricante fabricante = contexto.Fabricantes.Find(id);
+            contexto.Fabricantes.Remove(fabricante);
+            contexto.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
