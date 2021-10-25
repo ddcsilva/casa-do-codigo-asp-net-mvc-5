@@ -1,6 +1,7 @@
 ﻿using Projeto.Contexts;
 using Projeto.Models;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Projeto.Controllers
@@ -30,6 +31,24 @@ namespace Projeto.Controllers
             contexto.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        // GET: Fabricantes/Edit/5
+        public ActionResult Edit(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Fabricante fabricante = contexto.Fabricantes.Find(id);
+
+            if (fabricante == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(fabricante);
         }
     }
 }
