@@ -48,7 +48,7 @@ namespace Projeto.Controllers
         {
             if (id == null)
             {
-                new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
             Categoria categoria = contexto.Categorias.Find(id);
@@ -78,10 +78,21 @@ namespace Projeto.Controllers
         }
 
         // GET: Details
-        public ActionResult Details(long id)
+        public ActionResult Details(long? id)
         {
-            //return View(listaCategorias.Where(c => c.CategoriaId == id).First());
-            return null;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Categoria categoria = contexto.Categorias.Find(id);
+
+            if (categoria == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(categoria);
         }
 
         // GET: Delete
