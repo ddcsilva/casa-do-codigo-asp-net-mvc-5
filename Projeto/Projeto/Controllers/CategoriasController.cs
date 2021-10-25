@@ -96,10 +96,21 @@ namespace Projeto.Controllers
         }
 
         // GET: Delete
-        public ActionResult Delete(long id)
+        public ActionResult Delete(long? id)
         {
-            //return View(listaCategorias.Where(c => c.CategoriaId == id).First());
-            return null;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Categoria categoria = contexto.Categorias.Find(id);
+
+            if (categoria == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(categoria);
         }
 
         // POST: Delete
