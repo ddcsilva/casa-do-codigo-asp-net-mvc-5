@@ -1,5 +1,6 @@
 ﻿using Projeto.Contexts;
 using Projeto.Models;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -46,6 +47,22 @@ namespace Projeto.Controllers
             if (fabricante == null)
             {
                 return HttpNotFound();
+            }
+
+            return View(fabricante);
+        }
+
+        // POST: Fabricantes/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Fabricante fabricante)
+        {
+            if (ModelState.IsValid)
+            {
+                contexto.Entry(fabricante).State = EntityState.Modified;
+                contexto.SaveChanges();
+
+                return RedirectToAction("Index");
             }
 
             return View(fabricante);
