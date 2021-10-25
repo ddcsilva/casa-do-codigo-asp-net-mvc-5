@@ -116,9 +116,11 @@ namespace Projeto.Controllers
         // POST: Delete
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(Categoria categoria)
+        public ActionResult Delete(long id)
         {
-            //listaCategorias.Remove(listaCategorias.Where(c => c.CategoriaId == categoria.CategoriaId).First());
+            Categoria categoria = contexto.Categorias.Find(id);
+            contexto.Categorias.Remove(categoria);
+            contexto.SaveChanges();
 
             return RedirectToAction("Index");
         }
