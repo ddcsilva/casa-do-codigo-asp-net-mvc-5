@@ -112,6 +112,7 @@ namespace Projeto.Controllers
             Fabricante fabricante = contexto.Fabricantes.Find(id);
             contexto.Fabricantes.Remove(fabricante);
             contexto.SaveChanges();
+            TempData["Message"] = "Fabricante " + fabricante.Nome.ToUpper() + " foi removido";
 
             return RedirectToAction("Index");
         }

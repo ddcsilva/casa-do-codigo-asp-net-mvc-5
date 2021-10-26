@@ -5,6 +5,13 @@
     ViewBag.Title = "Listagem de FABRICANTES";
 }
 
+@if (@TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
 <div class="panel panel-primary">
     <div class="panel-heading">
         Relação de FABRICANTES registrados
@@ -43,11 +50,11 @@
         </table>
     </div>
     <div class="panel-footer panel-info">
-        @Html.ActionLink("Registrar um novo FABRICANTE","Create", null, new { @class = "btn btn-success" })
+        @Html.ActionLink("Registrar um novo FABRICANTE", "Create", null, new { @class = "btn btn-success" })
     </div>
 </div>
 @section styles {
-    <link href="@Url.Content("~/content/DataTables/css/dataTables.bootstrap.css")" rel="stylesheet"/>
+    <link href="@Url.Content("~/content/DataTables/css/dataTables.bootstrap.css")" rel="stylesheet" />
 }
 
 @section ScriptPage {
