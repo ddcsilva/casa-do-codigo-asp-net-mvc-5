@@ -5,7 +5,10 @@ namespace Projeto.Contexts
 {
     public class Contexto : DbContext
     {
-        public Contexto() : base("Asp_Net_MVC_5") {}
+        public Contexto() : base("Asp_Net_MVC_5")
+        {
+            Database.SetInitializer<Contexto>(new DropCreateDatabaseIfModelChanges<Contexto>());
+        }
 
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Fabricante> Fabricantes { get; set; }
