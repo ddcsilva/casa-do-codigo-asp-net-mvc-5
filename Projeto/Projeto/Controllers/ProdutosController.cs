@@ -1,4 +1,5 @@
 ﻿using Projeto.Contexts;
+using Projeto.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -29,16 +30,19 @@ namespace Projeto.Controllers
         // GET: Produtos/Create
         public ActionResult Create()
         {
+            ViewBag.CategoriaId = new SelectList(contexto.Categorias.OrderBy(c => c.Nome), "CategoriaId", "Nome");
+            ViewBag.FabricanteId = new SelectList(contexto.Fabricantes.OrderBy(c => c.Nome), "FabricanteId", "Nome");
             return View();
         }
 
         // POST: Produtos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Produto produto)
         {
             try
             {
-                // TODO: Add insert logic here
+                contexto.Produtos.Add(produto);
+                contexto.SaveChanges();
 
                 return RedirectToAction("Index");
             }
