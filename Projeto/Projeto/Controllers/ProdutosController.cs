@@ -1,4 +1,5 @@
 ﻿using Projeto.Contexts;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -11,7 +12,12 @@ namespace Projeto.Controllers
         // GET: Produtos
         public ActionResult Index()
         {
-            return View(contexto.Produtos.OrderBy(p => p.Nome));
+            var produtos = contexto.Produtos
+                .Include(c => c.Categoria)
+                .Include(f => f.Fabricante)
+                .OrderBy(p => p.Nome);
+
+            return View(produtos);
         }
 
         // GET: Produtos/Details/5
